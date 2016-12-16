@@ -5,7 +5,12 @@ class MaterialsController < ApplicationController
        
   # GET /materials
   def index
-    @materials = Material.all
+    if params[:title]
+      @materials = Material.where("title LIKE ?", "%#{params[:title]}%")
+    else
+      @materials = Material.all
+    end
+    
 
     render json: @materials
   end
